@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CreatePostForm from "./components/CreatePostForm";
 import PostsList from "./components/PostsList";
 import { IPost } from "./types/post";
@@ -6,6 +6,7 @@ import "./App.css";
 import Search from "./components/Search";
 import { usePosts } from "./hooks/usePosts";
 import { memo } from 'react';
+import { useFetchPosts } from "./hooks/useFetchPosts";
 
 const initialPosts: IPost[] = [
   {
@@ -40,6 +41,13 @@ export default function App() {
     newPosts.forEach((post, index) => (post.order = index + 1));
     setPosts(newPosts);
   }, [posts, setPosts])
+
+  useEffect(() => {
+    async function fetchPosts() {
+      setPosts(await useFetchPosts())
+    }
+    fetchPosts()
+  }, [])
 
   return (
     <>
