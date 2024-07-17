@@ -2,6 +2,7 @@ import { IPost } from "../types/post";
 import Post from "./Post";
 import { sortPostsByOrder } from "../helpers/sortPostsByOrder";
 import { useDrag } from "../hooks/useDrag";
+import { deletePost } from "../hooks/usePosts";
 
 interface PostsListProps {
   posts: IPost[];
@@ -9,10 +10,14 @@ interface PostsListProps {
 }
 
 export default function PostsList({ posts, setPosts }: PostsListProps) {
-  const deletePost = (id: number) => {
-    setPosts(posts.filter((p) => p.id !== id));
+  const removePost = async (id: string) => {
+    await deletePost(id)
   };
   const { dragOverHandler, dragStartHandler, dropHandler } = useDrag({posts, setPosts})
+
+  if(posts.length === 0) {
+    return ( <h2>Loading...</h2> )
+  }
 
   return (
     <section className="">
@@ -22,7 +27,7 @@ export default function PostsList({ posts, setPosts }: PostsListProps) {
           <Post
             key={post.id}
             post={post}
-            deletePost={deletePost}
+            removePost={removePost}
             dragStartHandler={dragStartHandler}
             dragOverHandler={dragOverHandler}
             dropHandler={dropHandler}

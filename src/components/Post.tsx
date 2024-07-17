@@ -3,7 +3,7 @@ import { IPost } from "../types/post";
 
 interface PostProps {
   post: IPost;
-  deletePost: (id: number) => void;
+  removePost: (id: string) => void;
   dragStartHandler: (post: IPost) => void;
   dragOverHandler: (e: DragEvent<HTMLElement>) => void;
   dropHandler: (e: DragEvent<HTMLElement>, post: IPost) => void;
@@ -11,7 +11,7 @@ interface PostProps {
 
 export default function Post({
   post,
-  deletePost,
+  removePost,
   dragStartHandler,
   dragOverHandler,
   dropHandler,
@@ -29,7 +29,7 @@ export default function Post({
       <p className="post__body">{post.body}</p>
       <button
         className="post__delete__button"
-        onClick={() => deletePost(post.id)}
+        onClick={() => removePost(post.id)}
       >
         Delete Post
       </button>

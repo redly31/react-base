@@ -4,7 +4,7 @@ interface CreatePostFormProps {
   createPost: (post: {
     title: string;
     body: string;
-    id: number;
+    id: string;
     order: number;
   }) => void;
 }
@@ -24,7 +24,7 @@ export default function CreatePostForm({ createPost }: CreatePostFormProps) {
     }
     setIsValidationSuccess(true)
     
-    createPost({title, body, id: Date.now(), order: 0});
+    createPost({title, body, id: String(Date.now()), order: 0});
 
     if (checked) {
       setTitle("");

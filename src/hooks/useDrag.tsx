@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DragEvent } from "react";
 import { IPost } from "../types/post";
+import { putPosts } from "./usePosts";
 
 interface useDragProps {
   posts: IPost[];
@@ -8,7 +9,6 @@ interface useDragProps {
 }
 
 export const useDrag = ({ posts, setPosts }: useDragProps) => {
-
   const [currentPost, setCurrentPost] = useState<IPost | null>(null);
 
   function dragStartHandler(post: IPost): void {
@@ -21,16 +21,17 @@ export const useDrag = ({ posts, setPosts }: useDragProps) => {
 
   function dropHandler(e: DragEvent<HTMLElement>, post: IPost): void {
     e.preventDefault();
-    setPosts(
-      posts.map((p) => {
-        if (p.id === post.id) {
-          return { ...p, order: currentPost ? currentPost.order : p.order };
-        } else if (p.id === currentPost?.id) {
-          return { ...p, order: post.order };
-        }
-        return p;
-      })
-    );
+    const updatedPosts = posts.map((p) => {
+      if (p.id === post.id) {
+        return { ...p, order: currentPost ? currentPost.order : p.order };
+      } else if (p.id === currentPost?.id) {
+        return { ...p, order: post.order };
+      }
+      return p;
+    });
+    updatedPosts.forEach((post) => {
+      putPosts(post)
+    });
   }
 
   return { dragStartHandler, dragOverHandler, dropHandler };

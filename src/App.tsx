@@ -4,49 +4,31 @@ import PostsList from "./components/PostsList";
 import { IPost } from "./types/post";
 import "./App.css";
 import Search from "./components/Search";
-import { usePosts } from "./hooks/usePosts";
+import { useSearch } from "./hooks/useSearch";
 import { memo } from 'react';
-import { useFetchPosts } from "./hooks/useFetchPosts";
-
-const initialPosts: IPost[] = [
-  {
-    title: "Hello World 1",
-    body: "Body 1",
-    id: 1720859539675,
-    order: 1,
-  },
-  {
-    title: "Hello World 2",
-    body: "Body 2",
-    id: 1720859541498,
-    order: 2,
-  },
-  {
-    title: "Hello World 3",
-    body: "Body 3",
-    id: 1720859543931,
-    order: 3,
-  },
-];
+import { getPosts, postPost } from "./hooks/usePosts";
 
 export default function App() {
 
-  const [posts, setPosts] = useState<IPost[]>(initialPosts);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [search, setSearch] = useState<string>('')
-  const searchedPosts = usePosts(posts, search)
+  const searchedPosts = useSearch(posts, search)
   const PostsListMemo = memo(PostsList);
 
-  const createPost = useCallback((newPost: IPost) => {
+  const createPost = (newPost: IPost) => {
     const newPosts = [...posts, newPost]
     newPosts.forEach((post, index) => (post.order = index + 1));
-    setPosts(newPosts);
-  }, [posts, setPosts])
+    postPost(newPost)
+  }
 
   useEffect(() => {
     async function fetchPosts() {
-      setPosts(await useFetchPosts())
+      const data = await getPosts();
+      setPosts(data);
     }
-    fetchPosts()
+    const intervalId = setInterval(fetchPosts, 2000);
+
+    return () => clearInterval(intervalId);
   }, [])
 
   return (
