@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import CreatePostForm from "../components/CreatePostForm";
 import PostsList from "../components/PostsList";
 import { IPost } from "../types/post";
@@ -20,7 +20,7 @@ export default function PostsPage() {
   
 
   useEffect(() => {
-    async function fetchPosts() {
+    const fetchPosts = async () => {
       const data = await getPosts();
       setPosts(data);
     }

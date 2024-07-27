@@ -1,4 +1,3 @@
-import { DragEvent } from "react";
 import { IPost } from "../types/post";
 
 interface PostProps {
