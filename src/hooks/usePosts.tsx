@@ -16,7 +16,3 @@ export async function deletePost(id: string) {
   const postId = String(id)
   await axios.delete(`http://localhost:3000/posts/${postId}`);
 }
-
-export function putPosts(post: IPost) {
-  axios.put(`http://localhost:3000/posts/${post.id}`, { ...post, order: post.order })
-}

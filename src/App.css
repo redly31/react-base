@@ -65,7 +65,6 @@
 .post {
     border: 2px solid var(--primary-color);
     padding: 10px 20px;
-    cursor: grab;
 }
 
 .post__title {
@@ -100,4 +99,14 @@
 .search__input:focus {
     transform: scale(0.995);
     transition: 0.1s;
+}
+
+.not__found__title {
+    text-align: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

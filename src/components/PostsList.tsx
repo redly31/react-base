@@ -1,21 +1,20 @@
 import { IPost } from "../types/post";
 import Post from "./Post";
-import { sortPostsByOrder } from "../helpers/sortPostsByOrder";
-import { useDrag } from "../hooks/useDrag";
 import { deletePost } from "../hooks/usePosts";
 
 interface PostsListProps {
   posts: IPost[];
-  setPosts: React.Dispatch<React.SetStateAction<IPost[]>>;
+  search: string;
 }
 
-export default function PostsList({ posts, setPosts }: PostsListProps) {
+export default function PostsList({ posts, search }: PostsListProps) {
   const removePost = async (id: string) => {
     await deletePost(id)
   };
-  const { dragOverHandler, dragStartHandler, dropHandler } = useDrag({posts, setPosts})
 
-  if(posts.length === 0) {
+  if(search !== '') {
+    return ( <h2>Posts not found</h2> )
+  } if(search === '' && posts.length === 0) {
     return ( <h2>Loading...</h2> )
   }
 
@@ -23,14 +22,11 @@ export default function PostsList({ posts, setPosts }: PostsListProps) {
     <section className="">
       <h2>Posts ({posts.length})</h2>
       <div className="posts">
-        {posts.sort(sortPostsByOrder).map((post) => (
+        {posts.map((post) => (
           <Post
             key={post.id}
             post={post}
             removePost={removePost}
-            dragStartHandler={dragStartHandler}
-            dragOverHandler={dragOverHandler}
-            dropHandler={dropHandler}
           />
         ))}
       </div>
