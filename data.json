@@ -1,10 +1,10 @@
 {
   "posts": [
     {
-    "title": "Hello World 1",
-    "body": "Body 1",
-    "id": "1"
-  },
+      "title": "Hello World 1",
+      "body": "Body 1",
+      "id": "1"
+    },
     {
       "title": "Hello World 2",
       "body": "Body 2",

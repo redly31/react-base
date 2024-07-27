@@ -1,9 +1,12 @@
+import { memo } from "react";
+
 interface SearchProps {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Search({ search, setSearch }: SearchProps) {
+function Search({ search, setSearch }: SearchProps) {
+  
   return (
     <section className="">
       <h2>Search</h2>
@@ -16,3 +19,5 @@ export default function Search({ search, setSearch }: SearchProps) {
     </section>
   );
 }
+
+export default memo(Search)

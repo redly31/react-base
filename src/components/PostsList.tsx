@@ -1,20 +1,18 @@
 import { IPost } from "../types/post";
 import Post from "./Post";
 import { deletePost } from "../hooks/usePosts";
+import { useCallback } from "react";
 
 interface PostsListProps {
   posts: IPost[];
-  search: string;
 }
 
-export default function PostsList({ posts, search }: PostsListProps) {
-  const removePost = async (id: string) => {
+export default function PostsList({ posts }: PostsListProps) {
+  const removePost = useCallback( async (id: string) => {
     await deletePost(id)
-  };
-
-  if(search !== '') {
-    return ( <h2>Posts not found</h2> )
-  } if(search === '' && posts.length === 0) {
+  }, [posts])
+  
+  if(posts.length === 0) {
     return ( <h2>Loading...</h2> )
   }
 

@@ -67,14 +67,6 @@
     padding: 10px 20px;
 }
 
-.post__title {
-    
-}
-
-.post__body {
-
-}
-
 .post__delete__button {
     border: 2px solid var(--primary-color);
     background: white;
@@ -109,4 +101,36 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.login__form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.login__form__input {
+    border: 2px solid var(--primary-color);
+    padding: 10px 20px;
+    width: 100%;
+    transition: 0.1s;
+    display: block;
+}
+
+.login__form__input:focus {
+    transform: scale(0.995);
+    transition: 0.1s;
+}
+
+.login__form__button {
+    border: 2px solid var(--primary-color);
+    background: white;
+    padding: 10px 20px;
+    transition: 0.1s;
+}
+
+.login__form__button:hover {
+    transform: scale(0.98);
+    transition: 0.1s;
 }

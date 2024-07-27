@@ -9,7 +9,7 @@ interface CreatePostFormProps {
   }) => void;
 }
 
-export default function CreatePostForm({ createPost }: CreatePostFormProps) {
+function CreatePostForm({ createPost }: CreatePostFormProps) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [checked, setChecked] = useState(false);
@@ -72,3 +72,5 @@ export default function CreatePostForm({ createPost }: CreatePostFormProps) {
     </section>
   );
 }
+
+export default CreatePostForm
